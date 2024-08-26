@@ -1,43 +1,16 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Asia-Pacific Charter Airline Tycoon</title>
-    <style>
-        body {
-            font-family: Arial, sans-serif;
-            margin: 0;
-            padding: 0;
-            display: flex;
-            flex-direction: column;
-            height: 100vh;
-        }
-        #top-bar {
-            background-color: #3498db;
-            color: white;
-            padding: 10px;
-            display: flex;
-            justify-content: space-between;
-        }
-        #main-content {
-            display: flex;
-            flex: 1;
-        }
-        #left-panel {
-            width: 250px;
-            background-color: #f1f1f1;
-            padding: 20px;
-        }
-        #map-section {
-            flex: 1;
-            background-color: #e0f2f1;
-            display: flex;
-            justify-content: center;
-            align-items: center;
-        }
+    <script src="game.js" type="text/javascript"></script>
+    <link rel="stylesheet" href="game.css">
+    <style id="style_p1">
     </style>
 </head>
+
 <body>
     <div id="top-bar">
         <div>Asia-Pacific Charter Airline Tycoon</div>
@@ -45,7 +18,7 @@
         <div>Date: <span id="date">January 1, 2025</span></div>
         <div>Cash: $<span id="cash">1,000,000</span></div>
     </div>
-    
+
     <div id="main-content">
         <div id="left-panel">
             <h2>Airline Information</h2>
@@ -53,39 +26,24 @@
             <p>Bank Balance: $<span id="bank-balance">1,000,000</span></p>
             <!-- Add more airline information here -->
         </div>
-        
+
         <div id="map-section">
-            <svg width="800" height="600" viewBox="0 0 800 600" xmlns="http://www.w3.org/2000/svg">
-                <!-- Ocean background -->
-                <rect width="100%" height="100%" fill="#e0f2f1"/>
-                
-                <!-- Countries (simplified shapes) -->
-                <path d="M100,200 L150,180 L200,220 L180,270 Z" fill="#c8e6c9" stroke="#2e7d32" stroke-width="2"/> <!-- Pakistan -->
-                <path d="M200,150 L300,100 L350,200 L250,250 Z" fill="#ffecb3" stroke="#ffa000" stroke-width="2"/> <!-- China -->
-                <path d="M330,220 L370,200 L390,240 L350,260 Z" fill="#fff9c4" stroke="#fbc02d" stroke-width="2"/> <!-- Mongolia -->
-                <path d="M180,280 L230,260 L260,300 L210,320 Z" fill="#ffcdd2" stroke="#c62828" stroke-width="2"/> <!-- India -->
-                <path d="M320,300 L350,280 L380,310 L350,330 Z" fill="#f8bbd0" stroke="#ad1457" stroke-width="2"/> <!-- Myanmar -->
-                <path d="M380,340 L410,320 L440,350 L410,370 Z" fill="#d1c4e9" stroke="#4527a0" stroke-width="2"/> <!-- Thailand -->
-                <path d="M450,400 L480,380 L510,410 L480,430 Z" fill="#bbdefb" stroke="#1565c0" stroke-width="2"/> <!-- Malaysia -->
-                <path d="M500,450 L530,430 L560,460 L530,480 Z" fill="#b2dfdb" stroke="#00695c" stroke-width="2"/> <!-- Indonesia -->
-                <path d="M600,150 L650,130 L680,170 L630,190 Z" fill="#f0f4c3" stroke="#afb42b" stroke-width="2"/> <!-- Japan -->
-                <path d="M650,400 L700,380 L730,420 L680,440 Z" fill="#d7ccc8" stroke="#5d4037" stroke-width="2"/> <!-- Australia -->
-                <path d="M750,500 L780,490 L790,510 L760,520 Z" fill="#cfd8dc" stroke="#455a64" stroke-width="2"/> <!-- New Zealand -->
-              
-                <!-- Country labels -->
-                <text x="130" y="230" font-size="12" fill="#000">Pakistan</text>
-                <text x="250" y="180" font-size="12" fill="#000">China</text>
-                <text x="340" y="230" font-size="12" fill="#000">Mongolia</text>
-                <text x="200" y="300" font-size="12" fill="#000">India</text>
-                <text x="330" y="310" font-size="12" fill="#000">Myanmar</text>
-                <text x="390" y="350" font-size="12" fill="#000">Thailand</text>
-                <text x="460" y="410" font-size="12" fill="#000">Malaysia</text>
-                <text x="510" y="460" font-size="12" fill="#000">Indonesia</text>
-                <text x="620" y="160" font-size="12" fill="#000">Japan</text>
-                <text x="660" y="410" font-size="12" fill="#000">Australia</text>
-                <text x="755" y="510" font-size="12" fill="#000">NZ</text>
-              </svg>
+            <object type="image/svg+xml" data="map.svg" id="map">
+                A map of asia should be here
+            </object>
+
+            <div id="plane-container">
+                <div id="plane">
+                    <svg viewBox="-1 -1  240 230" xmlns="http://www.w3.org/2000/svg">
+                        <path id="plane-path" fill-rule="evenodd"
+                            d="M194.67321 0 70.641958 53.625c-10.38227-6.92107-34.20058-21.27539-38.90545-23.44898-39.4400301-18.22079-36.9454001 14.73107-20.34925 24.6052 4.53917 2.70065 27.72352 17.17823 43.47345 26.37502l17.90625 133.9375 22.21875 13.15625 11.531252-120.9375 71.53125 36.6875 3.84375 39.21875 14.53125 8.625 11.09375-42.40625.125.0625 30.8125-31.53125-14.875-8-35.625 16.90625-68.28125-42.4375L217.36071 12.25 194.67321 0z" />
+                    </svg>
+                </div>
+            </div>
+
         </div>
+
     </div>
 </body>
-</html> 
+
+</html>
