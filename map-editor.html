@@ -1,0 +1,29 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="editor.css">
+    <title>Map Editor</title>
+    <script src="map-editor.js" type="text/javascript"></script>
+</head>
+
+<body>
+    <div id="tool-bar">
+        <a id="delete" class="tool"><span class="icon inverse">-</span>Remove City</a>
+        <a id="add" class="tool"><span class="icon inverse">+</span>Add City</a>
+        <input type="text" width="12" disabled id="city_name"/>
+        <a id="download" class="tool" download><span class="icon inverse">🡇</span>Download</a>
+    </div>
+    <div id="main-content">
+        <div id="map-section">
+            <object type="image/svg+xml" data="map.svg" id="map">
+                A map of asia should be here
+            </object>
+        </div>
+
+    </div>
+</body>
+
+</html>

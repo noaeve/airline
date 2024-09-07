@@ -1,0 +1,67 @@
+body {
+    display: flex;
+    flex-direction: column;
+    height: 100vh;
+}
+
+#main-content {
+    display: flex;
+    flex: 1;
+    overflow: auto;
+}
+
+#tool-bar {
+    position: absolute;
+    top: 0;
+    left: 0;
+    background-color: #27b;
+    color: white;
+    padding: 10px;
+    display: flex;
+    justify-content: space-between;
+    font-family: Arial, sans-serif;
+}
+
+#tool-bar a.tool,
+#tool-bar a.tool:link,
+#tool-bar a.tool:visited {
+    display: flex;
+    border: 2px solid white;
+    border-radius: 5px;
+    padding: 3px 5px;
+    align-items: center;
+    justify-content: center;
+    color: white;
+}
+
+#tool-bar a.tool:link {
+    text-decoration: none;
+}
+#tool-bar a.tool:hover {
+    text-decoration: none;
+    background-color: #ffffff55;    
+}
+#tool-bar a.tool.active {
+    text-decoration: none;
+    background-color: #0000ff99;    
+}
+
+#tool-bar  .icon {
+    font-weight: bold;
+    display: inline-block;
+    border-radius: 50%;
+    height: 2ex;
+    width: 2ex;
+    display: flex;    
+    align-items: center;
+    justify-content: center;
+    margin-right: 0.5ex;
+}
+#tool-bar .inverse {
+    color: #27b;
+    background-color: white;
+}
+
+#tool-bar > * {
+    margin: auto 1ex;
+} 

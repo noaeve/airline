@@ -1,0 +1,46 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<svg
+   viewBox="-1 -1 100.64816 100.76697"
+   width="100.00001"
+   height="100.00025"
+   version="1.0"
+   id="svg1"
+   sodipodi:docname="plane.svg"
+   inkscape:version="1.3.2 (091e20e, 2023-11-25, custom)"
+   xmlns:inkscape="http://www.inkscape.org/namespaces/inkscape"
+   xmlns:sodipodi="http://sodipodi.sourceforge.net/DTD/sodipodi-0.dtd"
+   xmlns="http://www.w3.org/2000/svg"
+   xmlns:svg="http://www.w3.org/2000/svg">
+  <defs
+     id="defs1" />
+  <sodipodi:namedview
+     id="namedview1"
+     pagecolor="#ffffff"
+     bordercolor="#000000"
+     borderopacity="0.25"
+     inkscape:showpageshadow="2"
+     inkscape:pageopacity="0.0"
+     inkscape:pagecheckerboard="0"
+     inkscape:deskcolor="#d1d1d1"
+     inkscape:zoom="3.2376782"
+     inkscape:cx="40.461093"
+     inkscape:cy="49.263698"
+     inkscape:window-width="1920"
+     inkscape:window-height="974"
+     inkscape:window-x="-11"
+     inkscape:window-y="-11"
+     inkscape:window-maximized="1"
+     inkscape:current-layer="svg1" />
+  <style
+     type="text/css"
+     id="plane">
+     path {
+       fill: rgba(70,70,100,0.7);
+     }
+    </style>
+  <path
+     fill-rule="evenodd"
+     d="M 38.441605,98.467063 70.300111,55.324001 c 4.921695,0.319306 15.911627,0.526974 17.951686,0.339989 17.101433,-1.567439 9.735262,-12.423126 2.10292,-12.523835 -2.087502,-0.02756 -12.884786,-0.403772 -20.093601,-0.439442 L 37.661779,0.12095666 27.456155,0.00787564 47.409747,43.964156 15.673799,45.552668 6.6072896,32.806384 -0.07134536,32.725294 4.5119276,49.54067 l -0.05508,0.003 -4.31573996,16.990953 6.67280196,-0.202595 8.8533964,-12.90985 31.759832,1.038767 -19.172449,44.298133 z"
+     id="path1"
+     style="stroke-width:0.396523" />
+</svg>

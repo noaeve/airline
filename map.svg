@@ -66,12 +66,23 @@
       }
 
       .city {
-         fill: rgba(250, 250, 250, 0.4);
-         stroke: rgb(90, 90, 90);
-         stroke-width: 0.8;
+         fill: rgba(250, 250, 250, 0.6);
+         stroke: rgba(40, 40, 40, 0.8);
+         stroke-width: 1;
+      }
+
+      .hidden {
+         fill: rgba(0,0,0,0);
+         stroke: rgba(0,0,0,0);
+         stroke-width: 0;
       }
    </style>
    <title id="title1">Map: Asia and Australasia</title>
+
+   <g id="reference">
+      <circle class="hidden" cx="0" cy="0" r="0" id="top_left"/> 
+      <circle class="hidden" cx="1200" cy="1080" r="0" id="bottom_right"/>
+   </g>
 
    <g id="pk" transform="translate(-1282.8407,-6.7611027)">
       <title id="title2">Pakistan</title>
@@ -1336,17 +1347,63 @@
       <path id="path3578" class="nz" d="m 2373.8,1003.9 c 0.4,-0.1 0.6,-0.1 0.7,-0.7 -0.3,0.3 -0.5,0.5 -0.7,0.7" />
    </g>
 
-   <g id="cities">
-      <circle class="city" cx="931.5399780273438" cy="914.3900146484375" r="5" id="sydney">
-         <title>Sydney</title>
-      </circle>
-
-      <circle class="city" cx="876.4500122070312" cy="949.3499755859375" r="5" id="melbourne">
-         <title>Melbourne</title>
-      </circle>
-
-      <circle class="city" cx="653.9400024414062" cy="636.7899780273438" r="5" id="singapore">
-         <title>Singapore</title>
-      </circle>
-   </g>
+<g id="cities">
+   <circle class="city" cx="931.5399780273438" cy="914.3900146484375" r="9" id="sydney">
+      <title>Sydney</title>
+   </circle>
+   <circle class="city" cx="876.4500122070312" cy="949.3499755859375" r="9" id="melbourne">
+      <title>Melbourne</title>
+   </circle>
+   <circle class="city" cx="653.9400024414062" cy="636.7899780273438" r="9" id="singapore">
+      <title>Singapore</title>
+   </circle>
+   <circle cx="758.9199829101562" cy="348.04998779296875" r="9" id="seoul" class="city">
+      <title>Seoul</title>
+   </circle>
+   <circle cx="455.8800048828125" cy="422.04998779296875" r="9" id="delhi" class="city">
+      <title>Delhi</title>
+   </circle>
+   <circle cx="504.8900146484375" cy="427.05999755859375" r="9" id="kathmandu" class="city">
+      <title>Kathmandu</title>
+   </circle>
+   <circle cx="689.9099731445312" cy="344.0400085449219" r="9" id="beijing" class="city">
+      <title>Beijing</title>
+   </circle>
+   <circle cx="848.9299926757812" cy="358.04998779296875" r="9" id="tokyo" class="city">
+      <title>Tokyo</title>
+   </circle>
+   <circle cx="624.9000244140625" cy="533.0700073242188" r="9" id="bangkok" class="city">
+      <title>Bangkok</title>
+   </circle>
+   <circle cx="673.9099731445312" cy="697.0900268554688" r="9" id="jakarta" class="city">
+      <title>Jakarta</title>
+   </circle>
+   <circle cx="373.8699951171875" cy="250.02999877929688" r="9" id="astana" class="city">
+      <title>Astana</title>
+   </circle>
+   <circle cx="708.9199829101562" cy="892.1199951171875" r="9" id="perth" class="city">
+      <title>Perth</title>
+   </circle>
+   <circle cx="865.9400024414062" cy="983.1300048828125" r="9" id="hobart" class="city">
+      <title>Hobart</title>
+   </circle>
+   <circle cx="1053.9599609375" cy="972.1300048828125" r="9" id="wellington" class="city">
+      <title>Wellington</title>
+   </circle>
+   <circle cx="595.9000244140625" cy="274.0400085449219" r="9" id="ulaanbaatar" class="city">
+      <title>Ulaanbaatar</title>
+   </circle>
+   <circle cx="272.8599853515625" cy="363.04998779296875" r="9" id="tehran" class="city">
+      <title>Tehran</title>
+   </circle>
+   <circle cx="383.8699951171875" cy="375.04998779296875" r="9" id="kabul" class="city">
+      <title>Kabul</title>
+   </circle>
+   <circle cx="240.86000061035156" cy="448.05999755859375" r="9" id="riyadh" class="city">
+      <title>Riyadh</title>
+   </circle>
+   <circle cx="124.83999633789062" cy="324.0400085449219" r="9" id="istanbul" class="city">
+      <title>Istanbul</title>
+   </circle>
+</g>
 </svg>
