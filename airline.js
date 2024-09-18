@@ -35,7 +35,6 @@ function run(svgDoc) {
         if(typeof(image) == "string") {
             image = document.getElementById(image);
         }
-        console.log("move", image, pt1, pt2);
         const x1 = pt1.x - image.offsetWidth / 2;
         const x2 = pt2.x - image.offsetWidth / 2;
         const y1 = pt1.y - image.offsetHeight / 2;
@@ -313,7 +312,6 @@ function run(svgDoc) {
         tt.style.left = pt.x + "px";
         tt.style.top = (pt.y) + "px";
         tt.style.display = "block";
-        console.log("show-tooltip", city, tt, city.pos, pt);
     }
 
     function clearTooltip() {
@@ -339,7 +337,6 @@ function run(svgDoc) {
     function find_plane_in_city(city) {
         return find_plane(plane => {
             if(plane.status == 'ground' && plane.to == city.id) {
-                console.log("Found plane", plane, "in city", city);
                 return true;
             } else {
                 return false;
@@ -376,8 +373,6 @@ function run(svgDoc) {
         if (finished) {
             return;
         }
-        // console.log("Click", city);
-        // fly_plane(1, city.id);
         if(city.id == selected_city) {
             if(selected_plane) {
                 fly_plane(selected_plane, selected_city);
