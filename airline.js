@@ -247,6 +247,14 @@ function run(svgDoc) {
     const charters = [];
     var finished = false;
 
+    function dump_state() {
+        console.log("Planes", planes);
+        console.log("Selected Plane", selected_plane);
+        console.log("Charters", charters);
+        console.log("Cities", cities);
+        console.log("Selected City", selected_city);
+    }
+
     function setPlanePosition(plane) {
         const div = document.getElementById("plane_" + plane.id);
         const city = svgDoc.getElementById(plane.to);
@@ -649,6 +657,8 @@ function run(svgDoc) {
             document.body.style.height = window.innerHeight + "px";
         });
         resizeObserver.observe(map);
+
+        document.querySelector("#left-panel .main h2").addEventListener('click', dump_state);
 
     }
     window.setTimeout(game_init, 5);
