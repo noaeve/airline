@@ -359,6 +359,7 @@ function run(svgDoc) {
             }
         }
         updateFields();
+        updateCharters();
     }
 
     var selected_city = null;
@@ -421,12 +422,16 @@ function run(svgDoc) {
                     <span><span class="label">Seats:</span><span class="seats">${p.seats}</span></span>
                 `;
 
+            node.addEventListener('click', () => {
+                selectPlane(p);
+            });
+
             if (p.seats < 10) {
                 const button = document.createElement("button");
                 button.title = "Add 2 seats";
                 button.className = "upgrade";
                 button.innerHTML = 'Upgrade<span class="cost">$25</span>';
-                button.addEventListener('click', function () {
+                button.addEventListener('click', () => {
                     if (p.seats < 10) {
                         buy(25, () => {
                             p.seats = p.seats + 2;
@@ -452,10 +457,12 @@ function run(svgDoc) {
 
         charters.forEach(function (flight) {
             const node = document.createElement("p");
+            node.className = "charter";
             if(flight.plane) {
-                node.className = "charter scheduled";
-            } else {
-                node.className = "charter";
+                node.classList.add("scheduled");
+                if(flight.plane == selected_plane) {
+                    node.classList.add("selected");
+                }
             }
             node.id = "charter_" + flight.id;
             node.innerHTML = `
@@ -472,6 +479,10 @@ function run(svgDoc) {
                 <span class="label">People:</span>
                 <span class="pax">${flight.passengers}</span>
             `;
+            node.addEventListener('click', () => {
+                if(flight.plane) selectPlane(flight.plane);
+            });
+
             container.appendChild(node);
         });
     }

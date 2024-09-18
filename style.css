@@ -53,7 +53,7 @@ body {
 #left-panel .plane, #left-panel .charter {
     font-size: 9pt;
 }
-#left-panel .plane.selected {
+#left-panel .selected {
     background-color: #3498db22;
     border: 1px solid #3498db44;
     border-radius: 2px;
