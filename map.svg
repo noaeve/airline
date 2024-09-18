@@ -1,5 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<svg version="1.1" id="svg2985" x="0px" y="0px" viewBox="0 0 1209.8048 1086.141" xml:space="preserve"
+<svg version="1.1" id="svg2985" x="0px" y="0px" 
+viewBox="80 175 1100 900" preserveAspectRatio="xMidYMid meet"
+   xml:space="preserve" 
    sodipodi:docname="World.svg" width="1209.8048" height="1086.141"
    inkscape:version="1.3.2 (091e20e, 2023-11-25, custom)" xmlns:inkscape="http://www.inkscape.org/namespaces/inkscape"
    xmlns:sodipodi="http://sodipodi.sourceforge.net/DTD/sodipodi-0.dtd" xmlns="http://www.w3.org/2000/svg"
@@ -1372,8 +1374,14 @@
    <circle cx="848.9299926757812" cy="358.04998779296875" r="9" id="tokyo" class="city">
       <title>Tokyo</title>
    </circle>
+   <circle cx="765.5499877929688" cy="530.8900146484375" r="9" id="manila" class="city">
+      <title>Manila</title>
+   </circle>
    <circle cx="624.9000244140625" cy="533.0700073242188" r="9" id="bangkok" class="city">
       <title>Bangkok</title>
+   </circle>
+   <circle cx="654.5499877929688" cy="481.82000732421875" r="9" id="hanoi" class="city">
+      <title>Hanoi</title>
    </circle>
    <circle cx="673.9099731445312" cy="697.0900268554688" r="9" id="jakarta" class="city">
       <title>Jakarta</title>
