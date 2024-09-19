@@ -125,6 +125,10 @@ button#new_plane {
 #manifest-container .occupied {
     color: #3498db;
 }
+#manifest-container .undersize .seats,
+#charters-container .oversize .pax {
+    color: #db3498;
+}
 #charters-container {
     max-height: 40vh;
     overflow: auto;

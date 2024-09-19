@@ -13,12 +13,27 @@ function run(svgDoc) {
         return Math.floor(Math.random() * (max - min + 1)) + min;
     }
 
-    function array_remove(arr, item) {
-        const i = arr.indexOf(item);
-        if (i >= 0) {
-            arr.splice(i, 1);
+    const arr = {
+        "remove": (arr, item) => {
+            const i = arr.indexOf(item);
+            if (i >= 0) {
+                arr.splice(i, 1);
+                return true;
+            } else {
+                return false;
+            }
+        },
+        "max": (arr, func) => {
+            var m = null;
+            for(var i=0; i<arr.length; i++) {
+                const v = func ? func(arr[i]) : arr[i];
+                if(m == null || v > m) {
+                    m = v;
+                }
+            }
+            return m;
         }
-    }
+    };
 
     function flash(element) {
         element.style.color = "red";
@@ -161,8 +176,6 @@ function run(svgDoc) {
             return false;
         }
         if(plane.seats < charter.passengers) {
-            flash(document.querySelector("#manifest_" + plane.id + " .seats"));
-            flash(document.querySelector("#charter_" + charter.id + " .pax"));
             return false;
         }
         plane.charter = charter;
@@ -175,7 +188,7 @@ function run(svgDoc) {
         }
         const charter = plane.charter;
         if(plane.to == charter.to) {
-            array_remove(charters, charter);
+            arr.remove(charters, charter);
             balance += charter.income;
             reputation += charter.reputation;
             plane.charter = null;
@@ -417,6 +430,12 @@ function run(svgDoc) {
             if(p == selected_plane) {
                 node.classList.add("selected");
             }
+            if (p.status == 'ground' && p.charter == null) {
+                const c = findWaitingCharter(p.to);
+                if (c && c.passengers > p.seats) {
+                    node.classList.add("undersize");
+                }
+            }
             node.id = "manifest_" + p.id;
             node.innerHTML = `
                     <span><span class="label">#</span>${p.id}</span>
@@ -457,13 +476,21 @@ function run(svgDoc) {
         const container = document.getElementById("charters-container");
         container.textContent = "";
 
+        const maxSeats = arr.max(planes, p => p.seats);
         charters.forEach(function (flight) {
             const node = document.createElement("p");
             node.className = "charter";
-            if(flight.plane) {
+            if (flight.plane) {
                 node.classList.add("scheduled");
-                if(flight.plane == selected_plane) {
+                if (flight.plane == selected_plane) {
                     node.classList.add("selected");
+                }
+            } else if (flight.passengers > maxSeats) {
+                node.classList.add("oversize");
+            } else {
+                const p = find_plane_in_city(flight.from);
+                if (p && p.seats < flight.passengers) {
+                    node.classList.add("oversize");
                 }
             }
             node.id = "charter_" + flight.id;
@@ -496,7 +523,7 @@ function run(svgDoc) {
         }
         const k = Object.keys(cities);
         if (otherThan) {
-            array_remove(k, otherThan);
+            arr.remove(k, otherThan);
         }
         const c = k[k.length * Math.random() << 0];
         return cities[c];
@@ -566,7 +593,9 @@ function run(svgDoc) {
     }
 
     function failCharter(charter) {
-        array_remove(charters, charter);
+        if( !arr.remove(charters, charter)) {
+            return;
+        }
         if(charter.plane) {
             charter.plane.charter = null;
             getPlaneIcon(charter.plane).classList.remove("occupied");
