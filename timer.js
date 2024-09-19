@@ -36,8 +36,11 @@ function secondsTimer(seconds, numberTicks, everyTick, atEnd) {
     };
     handle = window.setTimeout(func, everyMs);
     return {
-        "cancel": function() {
+        "cancel": () => {
             window.clearTimeout(handle);
+        },
+        "ticks_remaining": () => {
+            return numberTicks;
         }
     };
 }

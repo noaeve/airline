@@ -193,6 +193,9 @@ function run(svgDoc) {
             reputation += charter.reputation;
             plane.charter = null;
             charter.plane = null;
+            if(charter.timer) {
+                charter.timer.cancel();
+            }
             return true;
         }
         return false;
@@ -510,7 +513,7 @@ function run(svgDoc) {
                 <span class="label">People:</span>
                 <span class="pax">${flight.passengers}</span>
             `;
-            node.querySelector(".timer .inner").style.width = flight.time_remaining + "px";
+            node.querySelector(".timer .inner").style.width = flight.timer.ticks_remaining() + "px";
             node.addEventListener('click', () => {
                 if(flight.plane) selectPlane(flight.plane);
             });
@@ -602,7 +605,9 @@ function run(svgDoc) {
             charter.plane.charter = null;
             getPlaneIcon(charter.plane).classList.remove("occupied");
         }
-        reputation -= charter.reputation;
+        const r = reputation;
+        reputation = reputation - charter.reputation;
+        console.log("Fail charter. Reputation drop " + r + " => " + reputation, charter);
         updateFields();
         updateCharters();
     }
@@ -629,13 +634,11 @@ function run(svgDoc) {
             `${flight.passengers} passenger${passengers > 1 ? "s" : ""}, ${flight.reputation} reputation, $${flight.income}`,
             function () {
                 charters.push(flight);
-                flight.time_remaining = 100;
-                secondsTimer(90, 100, (remaining) => {
+                flight.timer = secondsTimer(90, 100, (remaining) => {
                     var t = document.querySelector("#charter_" + flight.id + " .timer .inner");
                     if(t) {
                         t.style.width = remaining + "px";
                     }
-                    flight.time_remaining = remaining;
                 }, () => {
                     failCharter(flight);
                 });
