@@ -356,7 +356,6 @@ function run(svgDoc) {
             }
         }
         selected_plane = plane;
-        console.log("Selected plane is now", plane);
         if(selected_plane) {
             const icon = getPlaneIcon(selected_plane);
             if(icon) {
@@ -570,6 +569,7 @@ function run(svgDoc) {
         array_remove(charters, charter);
         if(charter.plane) {
             charter.plane.charter = null;
+            getPlaneIcon(charter.plane).classList.remove("occupied");
         }
         reputation -= charter.reputation;
         updateFields();
