@@ -308,6 +308,9 @@ function run(svgDoc) {
         boardPassengers(p);
     }
     function buy(cost, callback) {
+        if (finished) {
+            return;
+        }
         if (balance < cost) {
             flash(document.getElementById("bank-balance").parentElement);
         } else {
