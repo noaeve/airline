@@ -142,21 +142,21 @@ function run(svgDoc) {
         return icon;
     }
 
-    function find_charter(cityId) {
+    function findWaitingCharter(cityId) {
         for(var i=0; i<charters.length; i++) {
             const charter = charters[i];
-            if(charter.from == cityId) {
+            if(charter.from == cityId && charter.plane == null) {
                 return charter;
             }
         }
         return null;
     }
 
-    function board_passengers(plane, charter) {
+    function boardPassengers(plane, charter) {
         if( plane.charter ) {
             return false;
         }
-        charter = charter || find_charter(plane.to);
+        charter = charter || findWaitingCharter(plane.to);
         if(charter == null) {
             return false;
         }
@@ -228,7 +228,7 @@ function run(svgDoc) {
             if( deliver_passengers(plane) ) {
                 icon.classList.remove("occupied");
             }
-            if( board_passengers(plane) ) {
+            if( boardPassengers(plane) ) {
                 icon.classList.add("occupied");
             }
             updateCharters();
@@ -610,7 +610,7 @@ function run(svgDoc) {
                 });
                 const plane = find_plane_in_city(fromCity);
                 if(plane) {
-                    board_passengers(plane, flight);
+                    boardPassengers(plane, flight);
                 }
                 updateCharters();
             });
