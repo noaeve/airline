@@ -557,7 +557,7 @@ function run(svgDoc) {
             if (timerHandle) {
                 timerHandle.cancel();
             }
-            box.removeChild(m);
+            m.remove();
         }
 
         const a = document.createElement("span");
