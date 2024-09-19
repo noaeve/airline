@@ -97,6 +97,10 @@ button:hover {
 button:active {
     background-color: hsl(204, 90%, 30%)
 }
+button#new_plane {
+    margin-bottom: 1px;
+}
+
 .timer {
     display: inline-block;
     border: 1px solid #3498db;
@@ -133,12 +137,6 @@ button:active {
     padding-top:2px;
 }
 #map-section {
-    /* flex: 1; */
-    /* background-color: rgb(210, 240, 255); */
-    /* display: flex;
-    justify-content: center;
-    align-items: center;
-    overflow: hidden; */ 
     position: relative;
     flex-grow: 1;
     overflow: hidden;
