@@ -168,7 +168,7 @@ function run(svgDoc) {
     }
 
     function boardPassengers(plane, charter) {
-        if( plane.charter ) {
+        if( plane.charter || plane.status != 'ground') {
             return false;
         }
         charter = charter || findWaitingCharter(plane.to);
@@ -302,6 +302,7 @@ function run(svgDoc) {
 
         setPlanePosition(p);
         selectPlane(p);
+        boardPassengers(p);
     }
     function buy(cost, callback) {
         if (balance < cost) {
@@ -456,6 +457,7 @@ function run(svgDoc) {
                     if (p.seats < 10) {
                         buy(25, () => {
                             p.seats = p.seats + 2;
+                            boardPassengers(p);
                             updateFields();
                         });
                     }
