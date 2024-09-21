@@ -156,24 +156,42 @@ button#new_plane {
     position: absolute;
     bottom: 5px;
     left: 5px;
-    height: 120px;
+    height: 105px;
     width:260px;
     background-color: #f1f1f1;
-    border: 1px solid #3498db;
+    border: 1px solid #9981fb;
     border-radius: 10px;
     padding: 3px;
-    font-size: 8pt;
+    font-size: 11pt;
     color: black; 
 }
 #messages > div + div {
     margin-top: 1ex;
 }
+#messages span.info {
+    display: inline-block;
+    margin-bottom: 3px;
+}
+#messages>div.festival span.info {
+    color: #08469e;
+    font-weight: bold;
+}
+#messages>div.disaster span.info {
+    color: #db3498;
+}
 #messages .notes {
     display: inline-block;
-    font-size: 7pt;
+    font-size: 9pt;
     color: #444;
     padding:0 0.6ex;
     min-width: 142px;
+}
+#messages .timer {
+    position: absolute;
+    bottom: 8px;
+    left: 8px;
+    right: 8px;
+    width: auto;
 }
 #messages button {
     margin-left: 1ex;
@@ -236,4 +254,49 @@ button#new_plane {
 .plane > svg > path.air.occupied {
     fill: #228822bb;
     stroke: #141;
+}
+
+.rules,
+.final_score {
+    position: absolute;
+    left: 225px;
+    right: 1em;
+    top: 50px;
+    bottom: 1em;
+    color: rgb(114, 30, 161);
+    border: 5px solid #f964cd;
+    border-radius: 3px;
+    background-color: rgb(240, 220, 250);
+    opacity: 0.85;
+    font-size: 18pt;
+    padding: 1em;
+}
+.rules button ,
+.final_score button {
+    position: absolute;
+    bottom: 1ex;
+    font-size: 12pt;
+    background-color: rgb(250,100,205);
+}
+.rules button:hover ,
+.final_score button:hover {
+    background-color: hsl(318, 94%, 50%);
+}
+.rules button:active ,
+.final_score button:active {
+    background-color: hsl(318, 94%, 40%);
+}
+.rules button.previous {
+    left: 1ex;
+}
+.rules button.next {
+    right: 1ex;
+}
+.rules #now {
+    opacity: 0;
+    font-size: 150%;
+}
+.final_score button {
+    left: auto;
+    right: auto;
 }

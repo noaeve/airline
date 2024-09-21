@@ -1,17 +1,13 @@
-import { randomName } from "./names.js";
+import { randomIntBetween, randomElement, randomChance } from "./random.js";
 import { minutesTimer, secondsTimer } from "./timer.js";
 import { month } from "./format.js";
+import { festivalsFor } from "./festivals.js";
+import { randomName } from "./names.js";
+import { showRules } from "./rules.js";
+import { showEndGame } from "./end_game.js";
 
 function run(svgDoc) {
     var svg = svgDoc.documentElement
-    /**
-     * Returns a random integer between min (inclusive) and max (inclusive)
-     */
-    function randomIntBetween(min, max) {
-        min = Math.ceil(min);
-        max = Math.floor(max);
-        return Math.floor(Math.random() * (max - min + 1)) + min;
-    }
 
     const arr = {
         "remove": (arr, item) => {
@@ -255,7 +251,8 @@ function run(svgDoc) {
 
     const cities = {};
     const startDate = new Date(2025, 0, 1);
-    var date = startDate;
+    const endDate = new Date(2025, 11, 31);
+    var date = new Date(startDate);
     var balance = 50;
     var reputation = 1;
     const planes = [];
@@ -268,6 +265,16 @@ function run(svgDoc) {
         console.log("Charters", charters);
         console.log("Cities", cities);
         console.log("Selected City", selected_city);
+    }
+
+    function daysBetween(start, end) {
+        const ms = end-start;
+        const d = Math.round((end - start) / (1000 * 60 * 60 * 24));
+        console.log(`Between ${start} and ${end} = ${ms}ms = ${d} days`);
+        return d;
+    }
+    function daysUntil(d) {
+        return daysBetween(date, d);
     }
 
     function setPlanePosition(plane) {
@@ -297,6 +304,7 @@ function run(svgDoc) {
             'to': 'sydney'
         };
         planes.push(p);
+        document.getElementById("plane-plural").style.display = planes.length == 1 ? "none" : "inline";
 
         const template = document.getElementById("plane_template");
         const plane = template.cloneNode(true);
@@ -473,12 +481,14 @@ function run(svgDoc) {
 
             manifest.appendChild(node);
         });
+        const score = reputation * seats;
         document.getElementById("bank-balance").innerText = balance;
         document.getElementById("reputation").innerText = reputation;
         document.getElementById("plane-count").innerText = planes.length;
         document.getElementById("plane-plural").style.display = planes.length == 1 ? "hidden" : "inline";
         document.getElementById("seat-count").innerText = seats;
-        document.getElementById("score").innerText = reputation * seats;
+        document.getElementById("score").innerText = score;
+        return score;
     }
     function updateCharters() {
         const container = document.getElementById("charters-container");
@@ -533,24 +543,24 @@ function run(svgDoc) {
         if (otherThan) {
             arr.remove(k, otherThan);
         }
-        const c = k[k.length * Math.random() << 0];
-        return cities[c];
+        return cities[randomElement(k)];
     }
 
     function cityDistance(c1, c2) {
         return calculateDistance(cities[c1].pos, cities[c2].pos);
     }
 
-    function addMessage(text, notes, onAccept) {
+    function addMessage(type, text, notes, onAccept) {
         const box = document.getElementById("messages");
         const s1 = document.createElement("span");
         s1.innerText = text;
-        const b = document.createElement("br");
-        s1.appendChild(b);
+        s1.className = "info";
+        s1.appendChild(document.createElement("br"));
         const s2 = document.createElement("span");
         s2.innerText = "(" + notes + ")";
         s2.className = "notes";
         s1.appendChild(s2);
+        s1.appendChild(document.createElement("br"));
 
         var timerHandle;
         const clearMessage = function () {
@@ -563,9 +573,9 @@ function run(svgDoc) {
         const a = document.createElement("span");
         a.innerText = "Accept?";
         const y = document.createElement("button");
-        y.innerText = "Y";
+        y.innerText = "Yes";
         const n = document.createElement("button");
-        n.innerText = "N";
+        n.innerText = "No";
 
         n.addEventListener('click', clearMessage);
         y.addEventListener('click', function () {
@@ -575,23 +585,22 @@ function run(svgDoc) {
 
         const outerTimer = document.createElement("span");
         outerTimer.className = "timer";
-        outerTimer.style.width = "25px";
-        outerTimer.style.marginLeft = "3px";
         const timer = document.createElement("span");
         timer.className = "inner";
-        timer.style.width = "25px";
+        timer.style.width = "100%";
 
         outerTimer.appendChild(timer);
 
-        timerHandle = secondsTimer(25, 25, (remaining) => {
+        timerHandle = secondsTimer(25, 100, (remaining) => {
             if (finished) {
                 clearMessage();
                 return;
             }
-            timer.style.width = remaining + "px";
+            timer.style.width = remaining + "%";
         }, clearMessage);
 
         const m = document.createElement("div");
+        m.className = type;
         m.appendChild(s1);
         m.append(a);
         m.appendChild(y);
@@ -615,11 +624,63 @@ function run(svgDoc) {
         updateCharters();
     }
 
-    var charterId = 0;
+    let charterId = 0;
+    let potentialDisasters = [ "flood", "earthquake", "fire" ];
+    let lastDisaster = null;
+    function daysSinceLastDisaster() {
+        if(lastDisaster == null) {
+            return null;
+        }
+        return daysBetween(lastDisaster, date);
+    }
     function offerCharter() {
         charterId++;
-        const fromCity = randomCity();
-        const toCity = randomCity(fromCity);
+
+        let toCity = null;
+        let name = null;
+        let multiplier = 1;
+        let rep = 3;
+        let message = "";
+        let type = "regular";
+        if (randomChance(5)) {
+            // Try to offer a festival booking
+            const f = festivalsFor(date);
+            if (f.length > 0) {
+                const festival = randomElement(f);
+                toCity = cities[randomElement(festival.cities)];
+                message = festival.message;
+                name = randomName(toCity);
+                multiplier = 2;
+                rep = 5;
+                type = "festival";
+                // TODO: show festival info at top of page
+            }
+        } else if (potentialDisasters.length > 0) {
+            const periodLength = 60;
+            const daysSince = daysSinceLastDisaster();
+            const daysElapsed = daysBetween(startDate, date);
+            console.log("[Days since-last-disaster: " + daysSince + ", since-start: " + daysElapsed + "] There are potential disasters", potentialDisasters);
+            if (daysElapsed > 14 && (lastDisaster == null || daysSince > periodLength)) {
+                const daysLeft = daysUntil(endDate);
+                const periodsLeft = Math.round(daysLeft / periodLength);
+                console.log(`Date=${date}; LastDisaster=${lastDisaster}; DaysLeft=${daysLeft}; PeriodsLeft=${periodsLeft};`);
+                if (periodsLeft < potentialDisasters.length || randomChance(daysLeft/4)) {
+                    const disaster = randomElement(potentialDisasters);
+                    arr.remove(potentialDisasters, disaster);
+                    rep = 10;
+                    multiplier = 0;
+                    type = "disaster";
+                    message = "There has been " + (disaster == "earthquake" ? "an " : "a ")
+                        + disaster;
+                    lastDisaster = new Date(date);
+                }
+            }
+        }
+
+        if (toCity == null) {
+            toCity = randomCity();
+        }
+        const fromCity = randomCity(toCity);
         const dist = cityDistance(fromCity.id, toCity.id);
         const value = (dist < 15 ? 1 : dist < 28 ? 2 : 5);
         const passengers = 1 + Math.min(9, randomIntBetween(0, date.getMonth()));
@@ -628,12 +689,18 @@ function run(svgDoc) {
             "passengers": passengers,
             "from": fromCity.id,
             "to": toCity.id,
-            "income": value * (8 + 2 * passengers),
-            "reputation": 3,
-            "name": randomName(fromCity.id, toCity.id)
+            "income": multiplier * value * (8 + 2 * passengers),
+            "reputation": rep,
+            "name": name || randomName(fromCity.id, toCity.id)
         };
+        if(type == "disaster") {
+            message = `${message} in ${toCity.name}. They require supplies from ${fromCity.name}`;
+        } else {
+            message = `${flight.name} wants to go from ${fromCity.name} to ${toCity.name} ${message}`;
+        }
         addMessage(
-            `${flight.name} wants to go from ${fromCity.name} to ${toCity.name}`,
+            type,
+            message,
             `${flight.passengers} passenger${passengers > 1 ? "s" : ""}, ${flight.reputation} reputation, $${flight.income}`,
             function () {
                 charters.push(flight);
@@ -653,6 +720,8 @@ function run(svgDoc) {
             });
     }
 
+    const secondsBetweenCharterOffers = 1;
+    const maxNumberOfActiveCharterOffers = 1;
     function game_init() {
         console.log("game: init");
         addPlane();
@@ -669,32 +738,48 @@ function run(svgDoc) {
             date.setTime(date.getTime() + gameMillisPerRealSecond);
             document.getElementById("month").innerText = month(date);
 
-            if (seconds % 4 == 0) {
-                if (document.getElementById("messages").childElementCount < 3) {
+            if (seconds % secondsBetweenCharterOffers == 0) {
+                if (document.getElementById("messages").childElementCount < maxNumberOfActiveCharterOffers) {
                     offerCharter();
                 }
             }
         }, function () {
             finished = true;
-            window.alert("END");
+            const score = updateFields();
+            showEndGame(score);
         });
+    }
 
+    function setup() {
         const map = document.getElementById("map");
+        function fixSize() {
+            const winHeight = window.innerHeight;
+            const topHeight = document.getElementById("top-bar").offsetHeight;
+            const mapHeight = map.offsetHeight;
+            const theHeight = topHeight + mapHeight;
+            if (theHeight - winHeight > 5) {
+                const newHeight = (3 + winHeight - topHeight);
+                console.log("Resizing map to " + newHeight);
+                map.style.height = newHeight + "px";
+            }
+        }
+        fixSize();
         const resizeObserver = new ResizeObserver(entries => {
             planes.forEach(p => {
                 if (p.status == 'ground') {
                     setPlanePosition(p);
                 }
             });
-            document.body.style.height = window.innerHeight + "px";
+            fixSize();
         });
         resizeObserver.observe(map);
 
         document.querySelector("#left-panel .main h2").addEventListener('click', dump_state);
-
     }
-    window.setTimeout(game_init, 5);
-
+    window.setTimeout(() => {
+        setup();
+        showRules(game_init)
+    }, 5);
 }
 
 document.addEventListener('DOMContentLoaded', function () {

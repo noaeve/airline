@@ -1,3 +1,5 @@
+import { randomElement } from "./random.js";
+
 const surnames = {
     "_": ["Pot", "Vent", "Tail", "Mote", "Fort", "Kent", "Drill", "Fang", "Gold", "Hall"],
     "astana": ["Kozlov", "Aitbayev"],
@@ -26,9 +28,6 @@ const titles = [
     "Mr", "Mr", "Mr", "Dr", "Ms", "Mrs", "Miss"
 ];
 
-function randomElement(arr) {
-    return arr[ arr.length * Math.random() << 0];
-}
 function randomName(cities) {
     const names = surnames["_"].slice();
     for (var i = 0; i < arguments.length; i++) {
