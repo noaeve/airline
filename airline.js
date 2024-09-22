@@ -270,7 +270,6 @@ function run(svgDoc) {
     function daysBetween(start, end) {
         const ms = end-start;
         const d = Math.round((end - start) / (1000 * 60 * 60 * 24));
-        console.log(`Between ${start} and ${end} = ${ms}ms = ${d} days`);
         return d;
     }
     function daysUntil(d) {
@@ -659,11 +658,9 @@ function run(svgDoc) {
             const periodLength = 60;
             const daysSince = daysSinceLastDisaster();
             const daysElapsed = daysBetween(startDate, date);
-            console.log("[Days since-last-disaster: " + daysSince + ", since-start: " + daysElapsed + "] There are potential disasters", potentialDisasters);
             if (daysElapsed > 14 && (lastDisaster == null || daysSince > periodLength)) {
                 const daysLeft = daysUntil(endDate);
                 const periodsLeft = Math.round(daysLeft / periodLength);
-                console.log(`Date=${date}; LastDisaster=${lastDisaster}; DaysLeft=${daysLeft}; PeriodsLeft=${periodsLeft};`);
                 if (periodsLeft < potentialDisasters.length || randomChance(daysLeft/4)) {
                     const disaster = randomElement(potentialDisasters);
                     arr.remove(potentialDisasters, disaster);
