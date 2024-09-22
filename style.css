@@ -140,6 +140,28 @@ button#new_plane {
     border-top: 1px solid #7eb3d7;
     padding-top:2px;
 }
+#charters-container .charter .festival .name {
+    display:block;
+    font-weight: bold;
+    margin-top:3px;
+}
+#charters-container .charter .festival .did_you_know {
+    font-style: italic;
+    font-size:90%;
+    color: #333;
+}
+#charters-container .charter .disaster {
+    margin-top:3px;
+}
+#charters-container .charter .disaster .warning {
+    font-style: italic;
+    font-size:90%;
+    color: #333;
+}
+#charters-container .charter .disaster .info {
+    text-transform: capitalize;
+    font-weight: bold;
+}
 #map-section {
     position: relative;
     flex-grow: 1;

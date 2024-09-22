@@ -511,7 +511,7 @@ function run(svgDoc) {
                 }
             }
             node.id = "charter_" + flight.id;
-            node.innerHTML = `
+            let html = `
                 <span class="person">${flight.name}</span>
                 <span class="timer"><span class="inner"></span></span>
                 <br />
@@ -525,6 +525,24 @@ function run(svgDoc) {
                 <span class="label">People:</span>
                 <span class="pax">${flight.passengers}</span>
             `;
+            node.innerHTML = html;
+            if(flight.festival) {
+                const festival = flight.festival;
+                const div = document.createElement("div");
+                div.className = "festival";
+                div.innerHTML = `
+                    <span class="name">${festival.name}</span>
+                    <span class="did_you_know">Did you know?</span>
+                    <span class="info">${festival.info}</span>`;
+                node.appendChild(div);
+            } else if(flight.disaster) {
+                const div = document.createElement("div");
+                div.className = "disaster";
+                div.innerHTML = `
+                    <span class="warning">Warning</span>
+                    <span class="info">${flight.disaster}</span>`;
+                node.appendChild(div);
+            }
             node.querySelector(".timer .inner").style.width = flight.timer.ticks_remaining() + "px";
             node.addEventListener('click', () => {
                 if(flight.plane) selectPlane(flight.plane);
@@ -644,11 +662,13 @@ function run(svgDoc) {
         let rep = 3;
         let message = "";
         let type = "regular";
+        let festival = null;
+        let disaster = null;
         if (randomChance(5)) {
             // Try to offer a festival booking
             const f = festivalsFor(date);
             if (f.length > 0) {
-                const festival = randomElement(f);
+                festival = randomElement(f);
                 toCity = cities[randomElement(festival.cities)];
                 message = festival.message;
                 name = randomName(toCity);
@@ -665,7 +685,7 @@ function run(svgDoc) {
                 const daysLeft = daysUntil(endDate);
                 const periodsLeft = Math.round(daysLeft / periodLength);
                 if (periodsLeft < potentialDisasters.length || randomChance(daysLeft/4)) {
-                    const disaster = randomElement(potentialDisasters);
+                    disaster = randomElement(potentialDisasters);
                     arr.remove(potentialDisasters, disaster);
                     rep = 10;
                     multiplier = 0;
@@ -691,7 +711,9 @@ function run(svgDoc) {
             "to": toCity.id,
             "income": multiplier * value * (8 + 2 * passengers),
             "reputation": rep,
-            "name": name || randomName(fromCity.id, toCity.id)
+            "name": name || randomName(fromCity.id, toCity.id),
+            "festival": festival,
+            "disaster": disaster,
         };
         if(type == "disaster") {
             message = `${message} in ${toCity.name}. They require supplies from ${fromCity.name}`;
