@@ -609,6 +609,9 @@ function run(svgDoc) {
     }
 
     function failCharter(charter) {
+        if (finished) {
+            return;
+        }
         if( !arr.remove(charters, charter)) {
             return;
         }
