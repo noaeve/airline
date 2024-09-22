@@ -36,9 +36,9 @@ body {
 #left-panel {
     min-width: 245px;
     width: 245px;
-    /* background-color: #f1f1f1; */
     padding: 0;
     font-size: 10pt;
+    overflow: auto;
 }
 
 #left-panel > div {
@@ -128,10 +128,6 @@ button#new_plane {
 #manifest-container .undersize .seats,
 #charters-container .oversize .pax {
     color: #db3498;
-}
-#charters-container {
-    max-height: 40vh;
-    overflow: auto;
 }
 #charters-container .scheduled {
     color: #3498db;
