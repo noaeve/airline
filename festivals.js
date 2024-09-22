@@ -21,7 +21,7 @@ const festivals = [
         "start": new Date("2025-03-15"),
         "end": new Date("2025-04-15"),
         "message": "to see the Cherry Blossoms",
-        "info": "This festival is celebrated in China and is a beautiful and unique event that showcases ice and snow sculptures."
+        "info": "Cherry blossoms are pretty trees that have pink flowers. They are most commonly found in Japan."
     },
     {
         "name": "Diwali",
@@ -37,7 +37,7 @@ const festivals = [
         "start": new Date("2025-03-20"),
         "end": new Date("2025-04-13"),
         "message": "for Songkran",
-        "info": "Songkran Celebrated in Thailand. It involves splashing water at other people."
+        "info": "Songkran is celebrated in Thailand. It involves splashing water at other people."
     },
     {
         "name": "Loy Krathong",
@@ -45,7 +45,7 @@ const festivals = [
         "start": new Date("2025-11-01"),
         "end": new Date("2025-11-30"),
         "message": "to attend Loy Krathong",
-        "info": "Loi Krathong, the Thailand Festival of Light, means floating basket."
+        "info": "Loy Krathong, the Thailand Festival of Light, means floating basket."
     },
     {
         "name": "Chingay Parade",
