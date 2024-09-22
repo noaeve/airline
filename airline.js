@@ -755,7 +755,14 @@ function run(svgDoc) {
         minutesTimer(gameMinutes, function (seconds) {
             const m = Math.floor(seconds / 60);
             const s = seconds % 60;
-            document.getElementById("countdown").innerText = m + ":" + (s < 10 ? "0" : "") + s;
+            const countdown = document.getElementById("countdown");
+            countdown.innerText = m + ":" + (s < 10 ? "0" : "") + s;
+            if (m == 0) {
+                countdown.classList.add("final_minute");
+                if (s <= 30) {
+                    document.getElementById("top-bar").classList.add("final_seconds");
+                }
+            }
 
             date.setTime(date.getTime() + gameMillisPerRealSecond);
             document.getElementById("month").innerText = month(date);

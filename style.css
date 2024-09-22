@@ -32,6 +32,22 @@ body {
     display: flex;
     justify-content: space-between;
 }
+#top-bar #countdown.final_minute {
+    color: rgb(255, 234, 153);
+    font-size: 125%;
+    font-weight: bold;
+}
+#top-bar.final_seconds {
+    background-color: #db3498;
+}
+#top-bar.final_seconds #countdown {
+    animation: blinker 1.5s linear infinite;
+}
+@keyframes blinker {
+    50% {
+        opacity: 0;
+    }
+}
 
 #left-panel {
     min-width: 245px;
