@@ -325,6 +325,9 @@ function run(svgDoc) {
             callback();
         }
     }
+    function upgradeCost(plane) {
+        return 20 + plane.seats * 5 / 2;
+    }
     document.getElementById("new_plane").addEventListener('click', function (event) {
         buy(45, () => {
             addPlane();
@@ -462,13 +465,14 @@ function run(svgDoc) {
             });
 
             if (p.seats < 10) {
+                const cost = upgradeCost(p);
                 const button = document.createElement("button");
                 button.title = "Add 2 seats";
                 button.className = "upgrade";
-                button.innerHTML = 'Upgrade<span class="cost">$25</span>';
+                button.innerHTML = `Upgrade<span class="cost">$${cost}</span>`;
                 button.addEventListener('click', () => {
                     if (p.seats < 10) {
-                        buy(25, () => {
+                        buy(cost, () => {
                             p.seats = p.seats + 2;
                             boardPassengers(p);
                             updateFields();
